@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-import { OpenGraph } from '@/app/api/og/components'
+import { OpenGraph } from '@/app/(app)/api/og/components'
 import { siteConfig } from '@/config/site'
 
 export const revalidate = false
