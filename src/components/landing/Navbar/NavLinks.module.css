@@ -1,0 +1,22 @@
+.nav {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: var(--mantine-size-x0_5);
+    background-color: var(--mantine-color-bright);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}

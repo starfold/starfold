@@ -1,0 +1,1 @@
+export { MantineWrapper } from './MantineWrapper'
