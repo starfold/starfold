@@ -1,0 +1,18 @@
+:root {
+  --mantine-size-x0_5: 2px;
+  --mantine-size-x1: 4px;
+  --mantine-size-x1_5: 6px;
+  --mantine-size-x2: 8px;
+  --mantine-size-x3: 12px;
+  --mantine-size-x4: 16px;
+  --mantine-size-x5: 20px;
+  --mantine-size-x6: 24px;
+  --mantine-size-x8: 32px;
+  --mantine-size-x10: 40px;
+  --mantine-size-x12: 48px;
+  --mantine-size-x16: 64px;
+  --mantine-size-x20: 80px;
+  --mantine-size-x24: 96px;
+  --mantine-size-x32: 128px;
+  --mantine-size-x40: 160px;
+}

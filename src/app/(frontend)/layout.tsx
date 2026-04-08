@@ -1,7 +1,17 @@
+import '@mantine/core/styles.layer.css'
+import '@mantine/dates/styles.layer.css'
+import '@mantine/notifications/styles.layer.css'
+import './globals.css'
+
+import {
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+} from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 import type { Metadata } from 'next'
-import type React from 'react'
 import { siteConfig } from '@/config/site'
-import './styles.css'
+import { resolver, theme } from './theme'
 
 const defaultTitle = `${siteConfig.name} - ${siteConfig.description}`
 
@@ -66,14 +76,24 @@ export const metadata: Metadata = {
   manifest: '/static/favicons/site.webmanifest',
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout(props: { children: React.ReactNode }) {
+  const { children } = props
+
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript defaultColorScheme="auto" />
+      </head>
+      <body>
+        <MantineProvider
+          theme={theme}
+          cssVariablesResolver={resolver}
+          defaultColorScheme="auto"
+        >
+          <Notifications />
+          <main>{children}</main>
+        </MantineProvider>
+      </body>
     </html>
   )
 }
