@@ -1,9 +1,14 @@
+import { headers } from 'next/headers'
 import { Hero, Navbar } from '@/components/landing'
+import { auth } from '@/lib/auth'
 
 export default async function HomePage() {
+  const headersList = await headers()
+  const session = await auth.api.getSession({ headers: headersList })
+
   return (
     <>
-      <Navbar />
+      <Navbar user={session?.user} />
       <Hero />
     </>
   )

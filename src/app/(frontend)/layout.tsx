@@ -90,7 +90,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           cssVariablesResolver={resolver}
           defaultColorScheme="auto"
         >
-          <Notifications />
+          <Notifications position="top-right" />
           <main>{children}</main>
         </MantineProvider>
       </body>

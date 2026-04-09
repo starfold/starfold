@@ -4,8 +4,10 @@ export default defineConfig({
   test: {
     name: 'dom',
     include: [
+      'src/components/**/*.test.ts',
       'src/components/**/*.test.tsx',
-      'src/app/(frontend)/**/*.test.tsx',
+      'src/app/*frontend*/**/*.test.tsx',
+      'src/app/*frontend*/**/*.test.ts',
     ],
     environment: 'happy-dom',
     globals: true,

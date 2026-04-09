@@ -1,5 +1,6 @@
 import { alpha, Box, Collapse, Container, Divider } from '@mantine/core'
 import { useClickOutside } from '@mantine/hooks'
+import type { User } from 'better-auth'
 import { useRef } from 'react'
 import { Actions } from './Actions'
 import { NavLinks } from './NavLinks'
@@ -8,12 +9,14 @@ interface MobileDropdownProps {
   opened: boolean
   onClose: () => void
   toggleRef: React.RefObject<HTMLElement | null>
+  user?: User
 }
 
 export function MobileDropdown({
   opened,
   onClose,
   toggleRef,
+  user,
 }: MobileDropdownProps) {
   const ref = useRef<HTMLDivElement>(null)
   useClickOutside(onClose, null, [ref.current, toggleRef.current])
@@ -44,7 +47,7 @@ export function MobileDropdown({
               borderTopColor: alpha('var(--mantine-color-dark-5)', 0.1),
             }}
           />
-          <Actions mode="mobile" />
+          <Actions mode="mobile" user={user} />
         </Container>
       </Box>
     </Collapse>

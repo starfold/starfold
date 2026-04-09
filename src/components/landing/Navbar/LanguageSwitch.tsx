@@ -1,6 +1,6 @@
 import { ActionIcon } from '@mantine/core'
 import { IconLanguage } from '@tabler/icons-react'
-import { sizes } from '@/app/(frontend)/theme'
+import { sizes } from '@/app/(frontend)/design'
 
 export function LanguageSwitch() {
   return (

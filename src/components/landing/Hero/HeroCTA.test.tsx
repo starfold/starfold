@@ -1,5 +1,6 @@
 import { render, within } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { siteLinks } from '@/config'
 import { MantineWrapper } from '@/test'
 import { HeroCTA } from './HeroCTA'
 
@@ -14,14 +15,14 @@ describe(HeroCTA, () => {
     const getStartedButton = within(container).getByText('Get Started')
     expect(getStartedButton).toBeInTheDocument()
     const link = getStartedButton.closest('a')
-    expect(link).toHaveAttribute('href', '/sign-in')
+    expect(link).toHaveAttribute('href', siteLinks.auth.signIn)
   })
 
   it('renders Try Demo button with correct href', () => {
     const githubButton = within(container).getByText('Try Demo')
     expect(githubButton).toBeInTheDocument()
     const link = githubButton.closest('a')
-    expect(link).toHaveAttribute('href', 'https://github.com/starfold/starfold')
+    expect(link).toHaveAttribute('href', siteLinks.github.repo)
   })
 
   it('renders GitHub link with target and rel attributes', () => {

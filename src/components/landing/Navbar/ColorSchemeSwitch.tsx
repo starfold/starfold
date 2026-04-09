@@ -9,7 +9,7 @@ import {
 } from '@mantine/core'
 import { useMounted } from '@mantine/hooks'
 import { IconDeviceDesktop, IconMoon, IconSun } from '@tabler/icons-react'
-import { sizes } from '@/app/(frontend)/theme'
+import { sizes } from '@/app/(frontend)/design'
 
 type ColorSchemeSwitchSegmentedControlProps = {
   value?: MantineColorScheme

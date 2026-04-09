@@ -1,16 +1,21 @@
 'use client'
 
-import { alpha, Box, Container, Group } from '@mantine/core'
+import { alpha, Box, Container, Group, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import type { User } from 'better-auth'
+import Link from 'next/link'
 import { useRef } from 'react'
+import { Logo } from '@/components/common'
 import { Actions } from './Actions'
-import { Logo } from './Logo'
 import { MobileDropdown } from './MobileDropdown'
 import { MobileToggle } from './MobileToggle'
 import { NavLinks } from './NavLinks'
-import { SignInButton } from './SignInButton'
 
-export function Navbar() {
+interface NavbarProps {
+  user?: User
+}
+
+export function Navbar({ user }: NavbarProps) {
   const [opened, { toggle, close }] = useDisclosure(false)
   const toggleRef = useRef<HTMLDivElement>(null)
 
@@ -32,7 +37,14 @@ export function Navbar() {
       <Container size="xl" py="md">
         <Group justify="space-between">
           <Group gap="md">
-            <Logo />
+            <Link href="/" style={{ textDecoration: 'none' }}>
+              <Group gap="sm">
+                <Logo />
+                <Text fw={700} size="md" c="bright">
+                  Starfold
+                </Text>
+              </Group>
+            </Link>
             <Box visibleFrom="xs">
               <NavLinks mode="desktop" />
             </Box>
@@ -41,9 +53,8 @@ export function Navbar() {
           {/* Desktop actions */}
           <Group gap="xs">
             <Box visibleFrom="xs">
-              <Actions mode="desktop" />
+              <Actions mode="desktop" user={user} />
             </Box>
-            <SignInButton />
             {/* Mobile toggle arrow */}
             <Box hiddenFrom="xs" ref={toggleRef}>
               <MobileToggle opened={opened} onToggle={toggle} />
@@ -54,7 +65,12 @@ export function Navbar() {
 
       {/* Mobile dropdown menu */}
       <Box hiddenFrom="xs">
-        <MobileDropdown opened={opened} onClose={close} toggleRef={toggleRef} />
+        <MobileDropdown
+          opened={opened}
+          onClose={close}
+          toggleRef={toggleRef}
+          user={user}
+        />
       </Box>
     </Box>
   )

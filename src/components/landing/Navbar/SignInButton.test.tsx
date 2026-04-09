@@ -1,5 +1,6 @@
 import { render, within } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
+import { siteLinks } from '@/config'
 import { MantineWrapper } from '@/test'
 import { SignInButton } from './SignInButton'
 
@@ -15,6 +16,6 @@ describe('SignInButton', () => {
 
   it('renders sign in button', () => {
     expect(button).toBeInTheDocument()
-    expect(link).toHaveAttribute('href', '/sign-in')
+    expect(link).toHaveAttribute('href', siteLinks.auth.signIn)
   })
 })

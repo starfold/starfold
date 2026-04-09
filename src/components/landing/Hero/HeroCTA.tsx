@@ -3,8 +3,8 @@
 import { Button, Group } from '@mantine/core'
 import { IconArrowUpRight, IconRocket } from '@tabler/icons-react'
 import Link from 'next/link'
-
-import { sizes } from '@/app/(frontend)/theme'
+import { sizes } from '@/app/(frontend)/design'
+import { siteLinks } from '@/config'
 
 import classes from './HeroCTA.module.css'
 
@@ -15,7 +15,7 @@ export function HeroCTA() {
         className={classes.button}
         color="blue"
         component={Link}
-        href="/sign-in"
+        href={siteLinks.auth.signIn}
         leftSection={<IconRocket size={sizes.x4} />}
         size="md"
       >
@@ -25,7 +25,7 @@ export function HeroCTA() {
       <Button
         className={classes.button}
         component={Link}
-        href="https://github.com/starfold/starfold"
+        href={siteLinks.github.repo}
         target="_blank"
         rel="noopener noreferrer"
         rightSection={<IconArrowUpRight size={sizes.x4} />}
