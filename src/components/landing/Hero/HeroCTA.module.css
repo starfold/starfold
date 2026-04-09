@@ -1,0 +1,10 @@
+.button {
+  transition:
+    box-shadow 100ms ease,
+    transform 100ms ease;
+
+  @mixin hover {
+    box-shadow: var(--mantine-shadow-lg);
+    transform: translateY(-1px) scale(1.02);
+  }
+}

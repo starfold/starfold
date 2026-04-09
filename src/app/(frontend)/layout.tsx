@@ -10,7 +10,7 @@ import {
 } from '@mantine/core'
 import { Notifications } from '@mantine/notifications'
 import type { Metadata } from 'next'
-import { siteConfig } from '@/config/site'
+import { siteConfig } from '@/config'
 import { resolver, theme } from './theme'
 
 const defaultTitle = `${siteConfig.name} - ${siteConfig.description}`

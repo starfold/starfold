@@ -57,6 +57,13 @@
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
+      },
+      "suspicious": {
+        "noUnknownAtRules": {
+          "options": {
+            "ignore": ["mixin"]
+          }
+        }
       }
     },
     "domains": {

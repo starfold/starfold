@@ -15,6 +15,7 @@ export default defineConfig({
         '**/theme.ts',
         'vitest*.config.mts',
         'tsup.config.ts',
+        '**/*.css',
       ],
     },
   },
