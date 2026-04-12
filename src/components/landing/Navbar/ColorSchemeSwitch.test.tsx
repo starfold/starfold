@@ -1,49 +1,74 @@
-import { render, within } from '@testing-library/react'
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { MantineWrapper } from '@/test'
 import { ColorSchemeSwitch } from './ColorSchemeSwitch'
 
 describe('ColorSchemeSwitch', () => {
-  let container: HTMLElement
-
   beforeEach(() => {
-    container = render(<ColorSchemeSwitch />, {
-      wrapper: MantineWrapper,
-    }).container
+    render(<ColorSchemeSwitch />, { wrapper: MantineWrapper })
   })
 
-  it('renders segmented control with aria-label', () => {
-    const segmentedControl = within(container).getByLabelText(
-      'Select color scheme'
-    )
-    expect(segmentedControl).toBeInTheDocument()
+  describe('target button', () => {
+    it('renders ActionIcon with color scheme aria-label', () => {
+      const button = screen.getByLabelText('Color scheme')
+      expect(button).toBeInTheDocument()
+    })
+
+    it('renders target icon based on current color scheme', () => {
+      const icon = screen.getByTestId('icon-colorscheme')
+      expect(icon).toHaveClass('tabler-icon-sun')
+    })
+
+    it('renders menu target with aria attributes', () => {
+      const button = screen.getByLabelText('Color scheme')
+      expect(button).toHaveAttribute('aria-haspopup', 'menu')
+    })
   })
 
-  it('renders three options: light, dark, and auto', () => {
-    expect(container.querySelectorAll('input')).toHaveLength(3)
-  })
+  describe('menu interactions', () => {
+    it('opens menu and renders dropdown items', async () => {
+      const button = screen.getByLabelText('Color scheme')
+      fireEvent.click(button)
 
-  it('renders icons for each color scheme option', () => {
-    const svgs = container.querySelectorAll('svg')
-    expect(svgs).toHaveLength(3)
+      await waitFor(() => {
+        expect(within(document.body).getByText('Light')).toBeInTheDocument()
+      })
 
-    // Check for specific icons by their paths
-    const html = container.innerHTML
-    expect(html).toContain('tabler-icon-sun')
-    expect(html).toContain('tabler-icon-moon')
-    expect(html).toContain('tabler-icon-device-desktop')
-  })
+      expect(within(document.body).getByText('Dark')).toBeInTheDocument()
+      expect(within(document.body).getByText('Auto')).toBeInTheDocument()
+    })
 
-  it('renders Tooltip components wrapping each icon', () => {
-    // Mantine Tooltip uses Floating UI and renders lazily on hover
-    // We verify Tooltip is wrapping each icon by checking for Center wrapper
-    const html = container.innerHTML
+    it('shows check icon on selected option', async () => {
+      const button = screen.getByLabelText('Color scheme')
+      fireEvent.click(button)
 
-    // Tooltip wraps icons in mantine-Center component
-    expect(html).toContain('mantine-Center-root')
+      const lightItem = await waitFor(() =>
+        within(document.body).getByText('Light')
+      )
+      expect(
+        within(lightItem.parentElement as HTMLElement).getByTestId('icon-check')
+      ).toBeInTheDocument()
+    })
 
-    // Verify 3 iconwrappers exist (one for each option inside Tooltip)
-    const centerRoots = html.match(/mantine-Center-root/g)
-    expect(centerRoots).toHaveLength(3)
+    it('calls setColorScheme when menu item is clicked', async () => {
+      const button = screen.getByLabelText('Color scheme')
+      fireEvent.click(button)
+
+      const darkItem = await waitFor(() =>
+        within(document.body).getByText('Dark')
+      )
+      fireEvent.click(darkItem)
+
+      await waitFor(() => {
+        const icon = screen.getByTestId('icon-colorscheme')
+        expect(icon).toHaveClass('tabler-icon-moon')
+      })
+    })
   })
 })

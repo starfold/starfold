@@ -11,7 +11,7 @@ export function GitHubLink() {
       href="https://github.com/starfold/starfold"
       target="_blank"
       rel="noopener noreferrer"
-      size="lg"
+      size={sizes.x8}
       variant="subtle"
     >
       <IconBrandGithub size={sizes.x5} data-testid="icon-github" />

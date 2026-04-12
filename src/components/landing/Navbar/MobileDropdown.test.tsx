@@ -21,7 +21,7 @@ describe('MobileDropdown', () => {
     expect(screen.getByText('Features')).toBeInTheDocument()
     expect(screen.getByText('Pricing')).toBeInTheDocument()
     expect(screen.getByText('FAQ')).toBeInTheDocument()
-    expect(screen.getByLabelText('Select color scheme')).toBeInTheDocument()
+    expect(screen.getByLabelText('Color scheme')).toBeInTheDocument()
   })
 
   it('renders divider when opened', () => {

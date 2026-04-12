@@ -7,7 +7,7 @@ export function LanguageSwitch() {
     <ActionIcon
       aria-label="Translation"
       color="gray"
-      size="lg"
+      size={sizes.x8}
       variant="subtle"
     >
       <IconLanguage size={sizes.x5} data-testid="icon-language" />

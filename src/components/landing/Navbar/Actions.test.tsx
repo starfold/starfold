@@ -13,11 +13,9 @@ describe('Actions', () => {
     container = result.container
   })
 
-  it('renders color scheme segmented control', () => {
-    const segmentedControl = within(container).getByLabelText(
-      'Select color scheme'
-    )
-    expect(segmentedControl).toBeInTheDocument()
+  it('renders color scheme switch button', () => {
+    const colorSchemeButton = within(container).getByLabelText('Color scheme')
+    expect(colorSchemeButton).toBeInTheDocument()
   })
 
   it('renders GitHub link button', () => {

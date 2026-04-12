@@ -16,7 +16,7 @@ export function Actions({ mode, user }: ActionsProps) {
   if (mode === 'mobile') {
     return (
       <Group justify="space-between">
-        <Group gap="xs">
+        <Group>
           <GitHubLink />
           <LanguageSwitch />
           <ColorSchemeSwitch />

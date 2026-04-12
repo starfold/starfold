@@ -1,86 +1,81 @@
 'use client'
 
-import {
-  Center,
-  type MantineColorScheme,
-  SegmentedControl,
-  Tooltip,
-  useMantineColorScheme,
-} from '@mantine/core'
+import { ActionIcon, Menu, useMantineColorScheme } from '@mantine/core'
 import { useMounted } from '@mantine/hooks'
-import { IconDeviceDesktop, IconMoon, IconSun } from '@tabler/icons-react'
+import {
+  IconCheck,
+  IconDeviceDesktop,
+  IconMoon,
+  IconSun,
+} from '@tabler/icons-react'
 import { sizes } from '@/app/(frontend)/design'
 
-type ColorSchemeSwitchSegmentedControlProps = {
-  value?: MantineColorScheme
-  onChange?: (value: MantineColorScheme) => void
-}
-
-function ColorSchemeSwitchSegmentedControl({
-  value,
-  onChange,
-}: ColorSchemeSwitchSegmentedControlProps) {
-  return (
-    <SegmentedControl
-      value={value}
-      onChange={onChange}
-      h={sizes.x8}
-      styles={{
-        label: {
-          paddingTop: sizes.x1,
-          paddingBottom: sizes.x1,
-        },
-      }}
-      data={[
-        {
-          value: 'light',
-          label: (
-            <Center>
-              <Tooltip label="Light mode">
-                <IconSun size={sizes.x4} />
-              </Tooltip>
-            </Center>
-          ),
-        },
-        {
-          value: 'dark',
-          label: (
-            <Center>
-              <Tooltip label="Dark mode">
-                <IconMoon size={sizes.x4} />
-              </Tooltip>
-            </Center>
-          ),
-        },
-        {
-          value: 'auto',
-          label: (
-            <Center>
-              <Tooltip label="System preference">
-                <IconDeviceDesktop size={sizes.x4} />
-              </Tooltip>
-            </Center>
-          ),
-        },
-      ]}
-      aria-label="Select color scheme"
-    />
-  )
-}
+const COLOR_SCHEME_OPTIONS = [
+  { value: 'light', label: 'Light', icon: IconSun },
+  { value: 'dark', label: 'Dark', icon: IconMoon },
+  { value: 'auto', label: 'Auto', icon: IconDeviceDesktop },
+] as const
 
 export function ColorSchemeSwitch() {
   const { colorScheme, setColorScheme } = useMantineColorScheme()
 
   if (!useMounted()) {
-    // Avoid hydration mismatch by rendering a non-interactive version on the
-    // server
-    return <ColorSchemeSwitchSegmentedControl />
+    return (
+      <ActionIcon
+        aria-label="Color scheme"
+        color="gray"
+        size="lg"
+        variant="subtle"
+      >
+        <IconDeviceDesktop size={sizes.x5} />
+      </ActionIcon>
+    )
   }
 
+  const CurrentIcon =
+    /* v8 ignore start */
+    COLOR_SCHEME_OPTIONS.find((opt) => opt.value === colorScheme)?.icon ??
+    /* v8 ignore stop */
+    IconDeviceDesktop
+
   return (
-    <ColorSchemeSwitchSegmentedControl
-      value={colorScheme}
-      onChange={setColorScheme}
-    />
+    <Menu
+      arrowOffset={sizes.x3i}
+      arrowSize={sizes.x2i}
+      position="bottom-end"
+      shadow="md"
+      withArrow
+    >
+      <Menu.Target>
+        <ActionIcon
+          aria-label="Color scheme"
+          color="gray"
+          size={sizes.x8}
+          variant="subtle"
+        >
+          <CurrentIcon size={sizes.x5} data-testid="icon-colorscheme" />
+        </ActionIcon>
+      </Menu.Target>
+      <Menu.Dropdown miw={40 * sizes.x1i}>
+        {COLOR_SCHEME_OPTIONS.map((option) => {
+          const isSelected = colorScheme === option.value
+          const Icon = option.icon
+          return (
+            <Menu.Item
+              key={option.value}
+              leftSection={<Icon size={sizes.x4} />}
+              rightSection={
+                isSelected ? (
+                  <IconCheck size={sizes.x4} data-testid="icon-check" />
+                ) : null
+              }
+              onClick={() => setColorScheme(option.value)}
+            >
+              {option.label}
+            </Menu.Item>
+          )
+        })}
+      </Menu.Dropdown>
+    </Menu>
   )
 }
