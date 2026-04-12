@@ -1,5 +1,4 @@
 export { SignUpForm } from './SignUpForm'
 export { SignUpFormFields } from './SignUpFormFields'
-export { SignUpHeader } from './SignUpHeader'
 export { type SignUpFormValues, signUpSchema } from './signUpSchema'
 export { useSignUpForm } from './useSignUpForm'

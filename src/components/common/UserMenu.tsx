@@ -1,3 +1,5 @@
+'use client'
+
 import { Menu, Text } from '@mantine/core'
 import type { User } from 'better-auth'
 import { useRouter } from 'next/navigation'
