@@ -1,4 +1,6 @@
 export { AuthHeader } from './AuthHeader'
 export { Logo, LogoWithTitle } from './Logo'
+export { SignOutOverlay } from './SignOutOverlay'
 export { UserAvatar } from './UserAvatar'
 export { UserMenu } from './UserMenu'
+export { useSignOut } from './useSignOut'

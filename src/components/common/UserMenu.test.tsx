@@ -18,6 +18,18 @@ vi.mock('next/navigation', () => ({
   }),
 }))
 
+vi.mock('@mantine/notifications', () => ({
+  notifications: {
+    show: vi.fn(),
+  },
+}))
+
+vi.mock('@/lib/auth-client', () => ({
+  authClient: {
+    signOut: vi.fn(),
+  },
+}))
+
 describe('UserMenu', () => {
   beforeEach(() => {
     mockPush.mockClear()
@@ -138,7 +150,10 @@ describe('UserMenu', () => {
       expect(mockPush).toHaveBeenCalledWith(siteLinks.settings)
     })
 
-    it('navigates to sign out when Sign Out menu item is clicked', async () => {
+    it('calls signOut and redirects to sign in when Sign Out is clicked', async () => {
+      const { authClient } = await import('@/lib/auth-client')
+      vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
+
       const { container } = render(<UserMenu user={verifiedUser} />, {
         wrapper: MantineWrapper,
       })
@@ -153,7 +168,44 @@ describe('UserMenu', () => {
         within(document.body).getByText('Sign Out')
       )
       fireEvent.click(signOutItem)
-      expect(mockPush).toHaveBeenCalledWith(siteLinks.auth.signOut)
+
+      await waitFor(
+        () => {
+          expect(authClient.signOut).toHaveBeenCalled()
+          expect(mockPush).toHaveBeenCalledWith(siteLinks.auth.signIn)
+        },
+        { timeout: 3000 }
+      )
+    })
+
+    it('shows error notification when sign out fails', async () => {
+      const { notifications } = await import('@mantine/notifications')
+      const { authClient } = await import('@/lib/auth-client')
+      vi.mocked(authClient.signOut).mockRejectedValueOnce(new Error('Failed'))
+
+      const { container } = render(<UserMenu user={verifiedUser} />, {
+        wrapper: MantineWrapper,
+      })
+
+      // Click on the avatar to open the menu
+      const avatar = getByTestId(container, 'user-avatar')
+      fireEvent.click(avatar as Element)
+
+      // Wait for the menu dropdown to render and click Sign Out
+      const signOutItem = await waitFor(() =>
+        within(document.body).getByText('Sign Out')
+      )
+      fireEvent.click(signOutItem)
+
+      await waitFor(() => {
+        expect(vi.mocked(notifications.show)).toHaveBeenCalledWith(
+          expect.objectContaining({
+            title: 'Error',
+            message: 'Failed to sign out',
+            color: 'red',
+          })
+        )
+      })
     })
   })
 })

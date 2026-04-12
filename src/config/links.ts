@@ -4,7 +4,6 @@ export const siteLinks = {
   settings: '/settings',
   auth: {
     signIn: '/auth/sign-in',
-    signOut: '/auth/sign-out',
     signUp: '/auth/sign-up',
   },
   github: {
