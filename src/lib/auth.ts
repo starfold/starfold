@@ -3,7 +3,7 @@ import { nextCookies } from 'better-auth/next-js'
 import { Pool } from 'pg'
 
 const pool = new Pool({
-  connectionString: process.env.AUTH_DATABASE_URL,
+  connectionString: process.env.BETTER_AUTH_DATABASE_URL,
 })
 
 export const auth = betterAuth({
