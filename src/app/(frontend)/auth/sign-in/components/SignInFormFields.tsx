@@ -11,6 +11,7 @@ import {
 import Link from 'next/link'
 import { sizes } from '@/app/(frontend)/design'
 import type { SignInFormValues } from '@/app/(frontend)/hooks'
+import { siteLinks } from '@/config'
 
 interface SignInFormFieldsProps {
   form: {
@@ -39,7 +40,7 @@ export function SignInFormFields({ form, isLoading }: SignInFormFieldsProps) {
         <Anchor
           c="blue"
           component={Link}
-          href="/forgot-password"
+          href={siteLinks.auth.forgotPassword}
           lh={'var(--mantine-line-height)'}
           pos={'absolute'}
           size="sm"

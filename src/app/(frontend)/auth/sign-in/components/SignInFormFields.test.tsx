@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { siteLinks } from '@/config'
 import { MantineWrapper } from '@/test'
 import { SignInFormFields } from './SignInFormFields'
 
@@ -39,7 +40,10 @@ describe('SignInFormFields', () => {
       name: 'Forgot password?',
     })
     expect(forgotPasswordLink).toBeInTheDocument()
-    expect(forgotPasswordLink).toHaveAttribute('href', '/forgot-password')
+    expect(forgotPasswordLink).toHaveAttribute(
+      'href',
+      siteLinks.auth.forgotPassword
+    )
   })
 
   it('renders sign in button', () => {

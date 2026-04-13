@@ -5,6 +5,8 @@ export const siteLinks = {
   auth: {
     signIn: '/auth/sign-in',
     signUp: '/auth/sign-up',
+    forgotPassword: '/auth/forgot-password',
+    resetPassword: '/auth/reset-password',
   },
   github: {
     repo: 'https://github.com/starfold/starfold',

@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { siteLinks } from '@/config'
 import { MantineWrapper } from '@/test'
 import { SignInForm } from './SignInForm'
 
@@ -17,7 +18,7 @@ describe(SignInForm, () => {
 
     expect(
       screen.getByRole('link', { name: 'Forgot password?' })
-    ).toHaveAttribute('href', '/forgot-password')
+    ).toHaveAttribute('href', siteLinks.auth.forgotPassword)
   })
 
   it('renders form with required attributes', () => {

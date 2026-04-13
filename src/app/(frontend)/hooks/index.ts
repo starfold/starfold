@@ -1,4 +1,14 @@
 export {
+  type ForgotPasswordFormValues,
+  forgotPasswordSchema,
+  useForgotPasswordForm,
+} from './use-forgot-password-form'
+export {
+  type ResetPasswordFormValues,
+  resetPasswordSchema,
+  useResetPasswordForm,
+} from './use-reset-password-form'
+export {
   type SignInFormValues,
   signInSchema,
   useSignInForm,
