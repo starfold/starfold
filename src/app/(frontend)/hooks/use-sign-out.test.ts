@@ -6,11 +6,20 @@ import { useSignOut } from './use-sign-out'
 
 const mockPush = vi.fn()
 
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: mockPush,
-  }),
-}))
+vi.mock('next/navigation', () => {
+  let currentPathname = '/'
+  return {
+    useRouter: () => ({
+      push: mockPush,
+    }),
+    usePathname: vi.fn(() => {
+      return currentPathname
+    }),
+    __setPathname: (path: string) => {
+      currentPathname = path
+    },
+  }
+})
 
 vi.mock('@mantine/notifications', () => ({
   notifications: {
@@ -134,6 +143,30 @@ describe('useSignOut', () => {
           color: 'red',
         })
       )
+    })
+  })
+
+  it('sets isSigningOut to false when pathname changes to sign-in page', async () => {
+    const { authClient } = await import('@/lib/auth-client')
+    const navigation = await import('next/navigation')
+    const { __setPathname } = navigation as never
+    vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
+
+    const { result, rerender } = renderHook(() => useSignOut(), {
+      wrapper: MantineWrapper,
+    })
+
+    act(() => {
+      result.current.signOut()
+    })
+
+    expect(result.current.isSigningOut).toBe(true)
+
+    __setPathname(siteLinks.auth.signIn)
+    rerender()
+
+    await waitFor(() => {
+      expect(result.current.isSigningOut).toBe(false)
     })
   })
 

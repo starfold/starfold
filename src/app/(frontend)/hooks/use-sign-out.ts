@@ -1,8 +1,8 @@
 'use client'
 
 import { notifications } from '@mantine/notifications'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { siteLinks } from '@/config'
 import { authClient } from '@/lib/auth-client'
 
@@ -13,7 +13,17 @@ interface UseSignOutReturn {
 
 export function useSignOut(): UseSignOutReturn {
   const router = useRouter()
+  const pathname = usePathname()
   const [isSigningOut, setIsSigningOut] = useState(false)
+
+  useEffect(() => {
+    // only reset signing out state if we're on the sign-in page, otherwise it
+    // will cause a flash of the sign-out overlay if the user manually navigates
+    // to another page while signing out
+    if (isSigningOut && pathname === siteLinks.auth.signIn) {
+      setIsSigningOut(false)
+    }
+  }, [pathname, isSigningOut])
 
   const signOut = async () => {
     setIsSigningOut(true)
@@ -25,7 +35,6 @@ export function useSignOut(): UseSignOutReturn {
       if (elapsed < minDelay) {
         await new Promise((resolve) => setTimeout(resolve, minDelay - elapsed))
       }
-      setIsSigningOut(false)
       router.push(siteLinks.auth.signIn)
     } catch (_error) {
       notifications.show({
