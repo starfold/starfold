@@ -339,24 +339,66 @@ export function GlassBlobBackground() {
       }}
     >
       {/* ── Coloured glow orbs (behind the glass) ─────────────── */}
-      {ORBS.map((orb, idx) => (
-        <div
-          key={orb.id}
-          ref={orbRefs[idx]}
-          aria-hidden="true"
-          style={{
-            position: 'absolute',
-            width: orb.width,
-            height: orb.height,
-            top: orb.top,
-            bottom: orb.bottom,
-            left: orb.left,
-            right: orb.right,
-            background: 'rgba(34,139,230,0.5)',
-            filter: `blur(${ORB_BLUR})`,
-          }}
-        />
-      ))}
+      {ORBS.map((orb, idx) => {
+        const initialBlend =
+          (Math.sin(
+            ((0 % COLOR_CYCLE_DURATION) / COLOR_CYCLE_DURATION) * Math.PI * 2 -
+              Math.PI / 2
+          ) +
+            1) /
+          2
+        let initialBackground = 'rgba(34,139,230,0.5)'
+        if (idx === 0) {
+          const center = lerpRgba(
+            BLUE_PALETTE.orb1.center,
+            ORANGE_PALETTE.orb1.center,
+            initialBlend
+          )
+          const edge = lerpRgba(
+            BLUE_PALETTE.orb1.edge,
+            ORANGE_PALETTE.orb1.edge,
+            initialBlend
+          )
+          initialBackground = `radial-gradient(circle at ${orb.centerX}% ${orb.centerY}%, ${center} 0%, ${edge} 45%, transparent 75%)`
+        } else if (idx === 1) {
+          const center = lerpRgba(
+            BLUE_PALETTE.orb2.center,
+            ORANGE_PALETTE.orb2.center,
+            initialBlend
+          )
+          const edge = lerpRgba(
+            BLUE_PALETTE.orb2.edge,
+            ORANGE_PALETTE.orb2.edge,
+            initialBlend
+          )
+          initialBackground = `radial-gradient(circle at ${orb.centerX}% ${orb.centerY}%, ${center} 0%, ${edge} 50%, transparent 75%)`
+        } else if (idx === 2) {
+          const center = lerpRgba(
+            BLUE_PALETTE.orb3.center,
+            ORANGE_PALETTE.orb3.center,
+            initialBlend
+          )
+          initialBackground = `radial-gradient(circle at ${orb.centerX}% ${orb.centerY}%, ${center} 0%, transparent 70%)`
+        }
+        return (
+          <div
+            key={orb.id}
+            ref={orbRefs[idx]}
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              width: orb.width,
+              height: orb.height,
+              top: orb.top,
+              bottom: orb.bottom,
+              left: orb.left,
+              right: orb.right,
+              background: initialBackground,
+              filter: `blur(${ORB_BLUR})`,
+            }}
+          />
+        )
+      })}
 
       {/* ── Morphing glassmorphism blobs ──────────────────────── */}
       {BLOBS.map((cfg, idx) => (
@@ -373,6 +415,7 @@ export function GlassBlobBackground() {
             width: cfg.width,
             height: cfg.height,
             transform: 'translate(-50%, -50%)',
+            borderRadius: morphRadius(0, cfg.speed, cfg.phase),
             background: 'rgba(255, 255, 255, 0.06)',
             backdropFilter: supportsBackdrop ? `blur(${BLOB_BLUR})` : 'none',
             WebkitBackdropFilter: supportsBackdrop
