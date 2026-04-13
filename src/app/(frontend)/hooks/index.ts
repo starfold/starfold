@@ -2,10 +2,10 @@ export {
   type SignInFormValues,
   signInSchema,
   useSignInForm,
-} from './use-sign-in'
+} from './use-sign-in-form'
 export { useSignOut } from './use-sign-out'
 export {
   type SignUpFormValues,
   signUpSchema,
   useSignUpForm,
-} from './use-sign-up'
+} from './use-sign-up-form'

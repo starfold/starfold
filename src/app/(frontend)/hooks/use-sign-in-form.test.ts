@@ -3,7 +3,7 @@ import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { authClient } from '@/lib/auth-client'
 import { MantineWrapper } from '@/test'
-import { signInSchema, useSignInForm } from './use-sign-in'
+import { signInSchema, useSignInForm } from './use-sign-in-form'
 
 // Mock the auth-client module
 vi.mock('@/lib/auth-client', () => ({
