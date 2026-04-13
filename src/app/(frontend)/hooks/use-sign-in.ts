@@ -56,11 +56,6 @@ export function useSignInForm({
           color: 'red',
         })
       } else {
-        notifications.show({
-          title: 'Success',
-          message: 'Signed in successfully!',
-          color: 'green',
-        })
         router.push(siteLinks.landing)
         onSuccess?.()
       }
