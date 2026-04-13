@@ -1,7 +1,7 @@
 'use client'
 
+import { useSignInForm } from '@/app/(frontend)/hooks'
 import { SignInFormFields } from './SignInFormFields'
-import { useSignInForm } from './useSignInForm'
 
 interface SignInFormProps {
   onSuccess?: () => void

@@ -1,59 +1,72 @@
 'use client'
 
+import type { UseFormReturnType } from '@mantine/form'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { z } from 'zod'
 import { siteLinks } from '@/config'
 import { authClient } from '@/lib/auth-client'
-import { type SignInFormValues, signInSchema } from './signInSchema'
 
-interface UseSignInFormOptions {
+export const signUpSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.email('Invalid email'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+})
+
+export type SignUpFormValues = z.infer<typeof signUpSchema>
+
+interface UseSignUpFormOptions {
   onSuccess?: () => void
 }
 
-import type { UseFormReturnType } from '@mantine/form'
-
-interface UseSignInFormReturn {
-  form: UseFormReturnType<SignInFormValues>
+interface UseSignUpFormReturn {
+  form: UseFormReturnType<SignUpFormValues>
   isLoading: boolean
-  handleSubmit: (values: SignInFormValues) => Promise<void>
+  handleSubmit: (values: SignUpFormValues) => Promise<void>
 }
 
-export function useSignInForm({
+export function useSignUpForm({
   onSuccess,
-}: UseSignInFormOptions = {}): UseSignInFormReturn {
-  const [isLoading, setIsLoading] = useState(false)
+}: UseSignUpFormOptions = {}): UseSignUpFormReturn {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
-  const form = useForm<SignInFormValues>({
+  const form = useForm<SignUpFormValues>({
     initialValues: {
+      name: '',
       email: '',
       password: '',
     },
-    validate: zod4Resolver(signInSchema),
+    validate: zod4Resolver(signUpSchema),
   })
 
-  const handleSubmit = async (values: SignInFormValues) => {
+  const handleSubmit = async (values: SignUpFormValues) => {
     setIsLoading(true)
     try {
-      const result = await authClient.signIn.email({
+      const result = await authClient.signUp.email({
         email: values.email,
         password: values.password,
+        name: values.name,
       })
 
       if (result.error) {
         notifications.show({
           title: 'Error',
-          message: result.error.message || 'Failed to sign in',
+          message: result.error.message || 'Failed to Create an account',
           color: 'red',
         })
       } else {
         notifications.show({
           title: 'Success',
-          message: 'Signed in successfully!',
+          message: 'Account created successfully!',
           color: 'green',
+        })
+        await authClient.signIn.email({
+          email: values.email,
+          password: values.password,
         })
         router.push(siteLinks.landing)
         onSuccess?.()

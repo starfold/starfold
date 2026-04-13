@@ -2,7 +2,7 @@ import { act, renderHook, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { siteLinks } from '@/config'
 import { MantineWrapper } from '@/test'
-import { useSignOut } from './useSignOut'
+import { useSignOut } from './use-sign-out'
 
 const mockPush = vi.fn()
 

@@ -6,59 +6,60 @@ import { notifications } from '@mantine/notifications'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { z } from 'zod'
 import { siteLinks } from '@/config'
 import { authClient } from '@/lib/auth-client'
-import { type SignUpFormValues, signUpSchema } from './signUpSchema'
 
-interface UseSignUpFormOptions {
+export const signInSchema = z.object({
+  email: z.email('Invalid email'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+})
+
+export type SignInFormValues = z.infer<typeof signInSchema>
+
+interface UseSignInFormOptions {
   onSuccess?: () => void
 }
 
-interface UseSignUpFormReturn {
-  form: UseFormReturnType<SignUpFormValues>
+interface UseSignInFormReturn {
+  form: UseFormReturnType<SignInFormValues>
   isLoading: boolean
-  handleSubmit: (values: SignUpFormValues) => Promise<void>
+  handleSubmit: (values: SignInFormValues) => Promise<void>
 }
 
-export function useSignUpForm({
+export function useSignInForm({
   onSuccess,
-}: UseSignUpFormOptions = {}): UseSignUpFormReturn {
-  const router = useRouter()
+}: UseSignInFormOptions = {}): UseSignInFormReturn {
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
-  const form = useForm<SignUpFormValues>({
+  const form = useForm<SignInFormValues>({
     initialValues: {
-      name: '',
       email: '',
       password: '',
     },
-    validate: zod4Resolver(signUpSchema),
+    validate: zod4Resolver(signInSchema),
   })
 
-  const handleSubmit = async (values: SignUpFormValues) => {
+  const handleSubmit = async (values: SignInFormValues) => {
     setIsLoading(true)
     try {
-      const result = await authClient.signUp.email({
+      const result = await authClient.signIn.email({
         email: values.email,
         password: values.password,
-        name: values.name,
       })
 
       if (result.error) {
         notifications.show({
           title: 'Error',
-          message: result.error.message || 'Failed to Create an account',
+          message: result.error.message || 'Failed to sign in',
           color: 'red',
         })
       } else {
         notifications.show({
           title: 'Success',
-          message: 'Account created successfully!',
+          message: 'Signed in successfully!',
           color: 'green',
-        })
-        await authClient.signIn.email({
-          email: values.email,
-          password: values.password,
         })
         router.push(siteLinks.landing)
         onSuccess?.()

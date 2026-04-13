@@ -2,7 +2,7 @@
 
 import { Box, Button, PasswordInput, Stack, TextInput } from '@mantine/core'
 import { sizes } from '@/app/(frontend)/design'
-import type { SignUpFormValues } from './signUpSchema'
+import type { SignUpFormValues } from '@/app/(frontend)/hooks'
 
 interface SignUpFormFieldsProps {
   form: {
