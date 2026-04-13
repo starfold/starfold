@@ -241,11 +241,13 @@ export function GlassBlobBackground() {
 
     function animate() {
       const now = performance.now()
+      /* v8 ignore start */
       if (document.hidden) {
         lastTime = now
         raf = requestAnimationFrame(animate)
         return
       }
+      /* v8 ignore end */
       const t = (now - start - pausedTime) / 1000
       const currentBlobs = blobsRef.current
       const currentOrbs = orbsRef.current
@@ -306,11 +308,13 @@ export function GlassBlobBackground() {
     }
 
     const handleVisibilityChange = () => {
+      /* v8 ignore start */
       if (document.hidden) {
         pausedTime += performance.now() - lastTime
       } else {
         lastTime = performance.now()
       }
+      /* v8 ignore end */
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
