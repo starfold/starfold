@@ -10,7 +10,7 @@ describe('SignInButton', () => {
 
   beforeEach(() => {
     const { container } = render(<SignInButton />, { wrapper: MantineWrapper })
-    button = within(container).getByText('Sign In')
+    button = within(container).getByText('Sign in')
     link = button.closest('a')
   })
 

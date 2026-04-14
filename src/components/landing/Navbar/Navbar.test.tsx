@@ -25,8 +25,8 @@ describe('Navbar', () => {
   })
 
   it('renders actions component with sign in button', () => {
-    // Sign In button is rendered in both desktop and mobile dropdown
-    const signInButtons = within(container).getAllByText('Sign In')
+    // Sign in button is rendered in both desktop and mobile dropdown
+    const signInButtons = within(container).getAllByText('Sign in')
     expect(signInButtons.length).toBeGreaterThanOrEqual(1)
   })
 

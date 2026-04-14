@@ -29,7 +29,7 @@ describe('AuthCard', () => {
       <AuthCard
         header={
           <div>
-            <h1>Sign In</h1>
+            <h1>Sign in</h1>
           </div>
         }
       >
@@ -37,7 +37,7 @@ describe('AuthCard', () => {
       </AuthCard>,
       { wrapper: MantineWrapper }
     )
-    expect(screen.getByRole('heading', { name: 'Sign In' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Sign in' })).toBeInTheDocument()
     expect(screen.getByText('Login Form')).toBeInTheDocument()
   })
 

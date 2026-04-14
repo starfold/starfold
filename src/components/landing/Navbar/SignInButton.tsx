@@ -13,7 +13,7 @@ export function SignInButton() {
       size="xs"
       h={sizes.x8}
     >
-      Sign In
+      Sign in
     </Button>
   )
 }
