@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
+import { siteLinks } from '@/config'
 import { MantineWrapper } from '@/test'
 import { AuthHeader } from './AuthHeader'
 
@@ -10,7 +11,7 @@ describe('AuthHeader', () => {
         title="Welcome back!"
         linkPrefix="New to Starfold?"
         linkText="Create an account"
-        linkHref="/auth/sign-up"
+        linkHref={siteLinks.auth.signUp}
       />,
       { wrapper: MantineWrapper }
     )
@@ -26,7 +27,7 @@ describe('AuthHeader', () => {
         title="Welcome back!"
         linkPrefix="New to Starfold?"
         linkText="Create an account"
-        linkHref="/auth/sign-up"
+        linkHref={siteLinks.auth.signUp}
       />,
       { wrapper: MantineWrapper }
     )
@@ -41,7 +42,7 @@ describe('AuthHeader', () => {
         title="Welcome back!"
         linkPrefix="New to Starfold?"
         linkText="Create an account"
-        linkHref="/auth/sign-up"
+        linkHref={siteLinks.auth.signUp}
       />,
       { wrapper: MantineWrapper }
     )
@@ -54,13 +55,13 @@ describe('AuthHeader', () => {
         title="Create an account"
         linkPrefix="Already have an account?"
         linkText="Sign in"
-        linkHref="/auth/sign-in"
+        linkHref={siteLinks.auth.signIn}
       />,
       { wrapper: MantineWrapper }
     )
     const link = screen.getByRole('link', { name: 'Sign in' })
     expect(link).toBeInTheDocument()
-    expect(link).toHaveAttribute('href', '/auth/sign-in')
+    expect(link).toHaveAttribute('href', siteLinks.auth.signIn)
   })
 
   it('renders with sign up variant', () => {
@@ -87,7 +88,7 @@ describe('AuthHeader', () => {
         title="Welcome back!"
         linkPrefix="New to Starfold?"
         linkText="Create an account"
-        linkHref="/auth/sign-up"
+        linkHref={siteLinks.auth.signUp}
       />,
       { wrapper: MantineWrapper }
     )
@@ -103,7 +104,7 @@ describe('AuthHeader', () => {
         title="Welcome back!"
         linkPrefix="New to Starfold?"
         linkText="Create an account"
-        linkHref="/auth/sign-up"
+        linkHref={siteLinks.auth.signUp}
       />,
       { wrapper: MantineWrapper }
     )

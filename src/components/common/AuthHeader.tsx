@@ -20,7 +20,9 @@ export function AuthHeader({
 }: AuthHeaderProps) {
   return (
     <Stack align="center" gap="sm">
-      <Logo height={sizes.x16i} width={sizes.x16i} />
+      <Link href="/">
+        <Logo height={sizes.x16i} width={sizes.x16i} />
+      </Link>
       <Title order={1} fw={700} ta="center">
         {title}
       </Title>
