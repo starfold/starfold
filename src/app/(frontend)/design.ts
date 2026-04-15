@@ -34,3 +34,20 @@ export const sizes = {
   x32i: 128,
   x40i: 160,
 } as const
+
+export const icon = {
+  sizes: {
+    xs: 12,
+    sm: 14,
+    md: 16,
+    lg: 18,
+    xl: 20,
+  },
+  strokes: {
+    xs: 1,
+    sm: 1.25,
+    md: 1.5,
+    lg: 1.75,
+    xl: 2,
+  },
+} as const

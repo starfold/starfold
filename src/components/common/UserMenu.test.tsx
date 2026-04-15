@@ -108,104 +108,152 @@ describe('UserMenu', () => {
       })
 
       expect(within(document.body).getByText('Settings')).toBeInTheDocument()
-      expect(within(document.body).getByText('Sign Out')).toBeInTheDocument()
+      expect(within(document.body).getByText('Sign out')).toBeInTheDocument()
       expect(
         within(document.body).getByText(verifiedUser.name)
       ).toBeInTheDocument()
     })
 
-    it('navigates to dashboard when Dashboard menu item is clicked', async () => {
-      const { container } = render(<UserMenu user={verifiedUser} />, {
-        wrapper: MantineWrapper,
+    describe('Dashboard menu item', () => {
+      it('renders with IconDashboard', async () => {
+        const { container } = render(<UserMenu user={verifiedUser} />, {
+          wrapper: MantineWrapper,
+        })
+
+        const avatar = getByTestId(container, 'user-avatar')
+        fireEvent.click(avatar as Element)
+
+        await waitFor(() => {
+          const dashboardItem = within(document.body).getByText('Dashboard')
+          const menuItem = dashboardItem.parentElement
+          expect(menuItem).toHaveClass('mantine-Menu-item')
+          const icon = menuItem?.querySelector('svg.tabler-icon-dashboard')
+          expect(icon).toBeInTheDocument()
+        })
       })
 
-      // Click on the avatar to open the menu
-      const avatar = getByTestId(container, 'user-avatar')
-      expect(avatar).toBeInTheDocument()
-      fireEvent.click(avatar as Element)
+      it('navigates to dashboard when clicked', async () => {
+        const { container } = render(<UserMenu user={verifiedUser} />, {
+          wrapper: MantineWrapper,
+        })
 
-      // Wait for the menu dropdown to render and click Dashboard
-      const dashboardItem = await waitFor(() =>
-        within(document.body).getByText('Dashboard')
-      )
-      fireEvent.click(dashboardItem)
-      expect(mockPush).toHaveBeenCalledWith(siteLinks.dashboard)
-    })
+        const avatar = getByTestId(container, 'user-avatar')
+        expect(avatar).toBeInTheDocument()
+        fireEvent.click(avatar as Element)
 
-    it('navigates to settings when Settings menu item is clicked', async () => {
-      const { container } = render(<UserMenu user={verifiedUser} />, {
-        wrapper: MantineWrapper,
-      })
-
-      // Click on the avatar to open the menu
-      const avatar = getByTestId(container, 'user-avatar')
-
-      expect(avatar).toBeInTheDocument()
-      fireEvent.click(avatar as Element)
-
-      // Wait for the menu dropdown to render and click Settings
-      const settingsItem = await waitFor(() =>
-        within(document.body).getByText('Settings')
-      )
-      fireEvent.click(settingsItem)
-      expect(mockPush).toHaveBeenCalledWith(siteLinks.settings)
-    })
-
-    it('calls signOut and redirects to sign in when Sign Out is clicked', async () => {
-      const { authClient } = await import('@/lib/auth-client')
-      vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
-
-      const { container } = render(<UserMenu user={verifiedUser} />, {
-        wrapper: MantineWrapper,
-      })
-
-      // Click on the avatar to open the menu
-      const avatar = getByTestId(container, 'user-avatar')
-      expect(avatar).toBeInTheDocument()
-      fireEvent.click(avatar as Element)
-
-      // Wait for the menu dropdown to render and click Sign Out
-      const signOutItem = await waitFor(() =>
-        within(document.body).getByText('Sign Out')
-      )
-      fireEvent.click(signOutItem)
-
-      await waitFor(
-        () => {
-          expect(authClient.signOut).toHaveBeenCalled()
-          expect(mockPush).toHaveBeenCalledWith(siteLinks.auth.signIn)
-        },
-        { timeout: 3000 }
-      )
-    })
-
-    it('shows error notification when sign out fails', async () => {
-      const { notifications } = await import('@mantine/notifications')
-      const { authClient } = await import('@/lib/auth-client')
-      vi.mocked(authClient.signOut).mockRejectedValueOnce(new Error('Failed'))
-
-      const { container } = render(<UserMenu user={verifiedUser} />, {
-        wrapper: MantineWrapper,
-      })
-
-      // Click on the avatar to open the menu
-      const avatar = getByTestId(container, 'user-avatar')
-      fireEvent.click(avatar as Element)
-
-      // Wait for the menu dropdown to render and click Sign Out
-      const signOutItem = await waitFor(() =>
-        within(document.body).getByText('Sign Out')
-      )
-      fireEvent.click(signOutItem)
-
-      await waitFor(() => {
-        expect(vi.mocked(notifications.show)).toHaveBeenCalledWith(
-          expect.objectContaining({
-            title: 'Error',
-            message: 'Failed to sign out',
-            color: 'red',
-          })
+        const dashboardItem = await waitFor(() =>
+          within(document.body).getByText('Dashboard')
         )
+        fireEvent.click(dashboardItem)
+        expect(mockPush).toHaveBeenCalledWith(siteLinks.dashboard)
+      })
+    })
+
+    describe('Settings menu item', () => {
+      it('renders with IconSettings', async () => {
+        const { container } = render(<UserMenu user={verifiedUser} />, {
+          wrapper: MantineWrapper,
+        })
+
+        const avatar = getByTestId(container, 'user-avatar')
+        fireEvent.click(avatar as Element)
+
+        await waitFor(() => {
+          const settingsItem = within(document.body).getByText('Settings')
+          const menuItem = settingsItem.parentElement
+          expect(menuItem).toHaveClass('mantine-Menu-item')
+          const icon = menuItem?.querySelector('svg.tabler-icon-settings')
+          expect(icon).toBeInTheDocument()
+        })
+      })
+
+      it('navigates to settings when clicked', async () => {
+        const { container } = render(<UserMenu user={verifiedUser} />, {
+          wrapper: MantineWrapper,
+        })
+
+        const avatar = getByTestId(container, 'user-avatar')
+        expect(avatar).toBeInTheDocument()
+        fireEvent.click(avatar as Element)
+
+        const settingsItem = await waitFor(() =>
+          within(document.body).getByText('Settings')
+        )
+        fireEvent.click(settingsItem)
+        expect(mockPush).toHaveBeenCalledWith(siteLinks.settings)
+      })
+    })
+
+    describe('Sign out menu item', () => {
+      it('renders with IconLogout', async () => {
+        const { container } = render(<UserMenu user={verifiedUser} />, {
+          wrapper: MantineWrapper,
+        })
+
+        const avatar = getByTestId(container, 'user-avatar')
+        fireEvent.click(avatar as Element)
+
+        await waitFor(() => {
+          const signOutItem = within(document.body).getByText('Sign out')
+          const menuItem = signOutItem.parentElement
+          expect(menuItem).toHaveClass('mantine-Menu-item')
+          const icon = menuItem?.querySelector('svg.tabler-icon-logout')
+          expect(icon).toBeInTheDocument()
+        })
+      })
+
+      it('calls signOut and redirects to sign in when clicked', async () => {
+        const { authClient } = await import('@/lib/auth-client')
+        vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
+
+        const { container } = render(<UserMenu user={verifiedUser} />, {
+          wrapper: MantineWrapper,
+        })
+
+        const avatar = getByTestId(container, 'user-avatar')
+        expect(avatar).toBeInTheDocument()
+        fireEvent.click(avatar as Element)
+
+        const signOutItem = await waitFor(() =>
+          within(document.body).getByText('Sign out')
+        )
+        fireEvent.click(signOutItem)
+
+        await waitFor(
+          () => {
+            expect(authClient.signOut).toHaveBeenCalled()
+            expect(mockPush).toHaveBeenCalledWith(siteLinks.auth.signIn)
+          },
+          { timeout: 3000 }
+        )
+      })
+
+      it('shows error notification when sign out fails', async () => {
+        const { notifications } = await import('@mantine/notifications')
+        const { authClient } = await import('@/lib/auth-client')
+        vi.mocked(authClient.signOut).mockRejectedValueOnce(new Error('Failed'))
+
+        const { container } = render(<UserMenu user={verifiedUser} />, {
+          wrapper: MantineWrapper,
+        })
+
+        const avatar = getByTestId(container, 'user-avatar')
+        fireEvent.click(avatar as Element)
+
+        const signOutItem = await waitFor(() =>
+          within(document.body).getByText('Sign out')
+        )
+        fireEvent.click(signOutItem)
+
+        await waitFor(() => {
+          expect(vi.mocked(notifications.show)).toHaveBeenCalledWith(
+            expect.objectContaining({
+              title: 'Error',
+              message: 'Failed to sign out',
+              color: 'red',
+            })
+          )
+        })
       })
     })
   })

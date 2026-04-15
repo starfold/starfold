@@ -1,9 +1,10 @@
 'use client'
 
 import { Menu, Text } from '@mantine/core'
+import { IconDashboard, IconLogout, IconSettings } from '@tabler/icons-react'
 import type { User } from 'better-auth'
 import { useRouter } from 'next/navigation'
-import { sizes } from '@/app/(frontend)/design'
+import { icon, sizes } from '@/app/(frontend)/design'
 import { useSignOut } from '@/app/(frontend)/hooks'
 import { SignOutOverlay } from '@/components/common'
 import { siteLinks } from '@/config'
@@ -35,14 +36,30 @@ export function UserMenu({ user }: UserMenuProps) {
             <Text c="bright">{user.name}</Text>
           </Menu.Label>
           <Menu.Divider />
-          <Menu.Item onClick={() => router.push(siteLinks.dashboard)}>
+          <Menu.Item
+            leftSection={
+              <IconDashboard size={icon.sizes.md} stroke={icon.strokes.md} />
+            }
+            onClick={() => router.push(siteLinks.dashboard)}
+          >
             Dashboard
           </Menu.Item>
-          <Menu.Item onClick={() => router.push(siteLinks.settings)}>
+          <Menu.Item
+            leftSection={
+              <IconSettings size={icon.sizes.md} stroke={icon.strokes.md} />
+            }
+            onClick={() => router.push(siteLinks.settings)}
+          >
             Settings
           </Menu.Item>
-          <Menu.Item color="red" onClick={signOut}>
-            Sign Out
+          <Menu.Item
+            color="red"
+            leftSection={
+              <IconLogout size={icon.sizes.md} stroke={icon.strokes.md} />
+            }
+            onClick={signOut}
+          >
+            Sign out
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
