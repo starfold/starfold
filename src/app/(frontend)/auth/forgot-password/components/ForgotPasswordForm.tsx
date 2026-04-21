@@ -1,7 +1,7 @@
 'use client'
 
 import { Stack, Text } from '@mantine/core'
-import { useForgotPasswordForm } from '@/app/(frontend)/hooks'
+import { useForgotPasswordForm } from '@/hooks'
 import { ForgotPasswordFormFields } from './ForgotPasswordFormFields'
 
 export function ForgotPasswordForm() {

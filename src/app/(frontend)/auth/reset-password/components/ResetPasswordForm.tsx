@@ -1,7 +1,7 @@
 'use client'
 
 import { Stack, Text } from '@mantine/core'
-import { useResetPasswordForm } from '@/app/(frontend)/hooks'
+import { useResetPasswordForm } from '@/hooks'
 import { ResetPasswordFormFields } from './ResetPasswordFormFields'
 
 export function ResetPasswordForm() {

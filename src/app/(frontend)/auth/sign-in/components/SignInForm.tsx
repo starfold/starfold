@@ -1,6 +1,6 @@
 'use client'
 
-import { useSignInForm } from '@/app/(frontend)/hooks'
+import { useSignInForm } from '@/hooks'
 import { SignInFormFields } from './SignInFormFields'
 
 interface SignInFormProps {

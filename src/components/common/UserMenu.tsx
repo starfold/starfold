@@ -5,9 +5,9 @@ import { IconDashboard, IconLogout, IconSettings } from '@tabler/icons-react'
 import type { User } from 'better-auth'
 import { useRouter } from 'next/navigation'
 import { icon, sizes } from '@/app/(frontend)/design'
-import { useSignOut } from '@/app/(frontend)/hooks'
 import { SignOutOverlay } from '@/components/common'
 import { siteLinks } from '@/config'
+import { useSignOut } from '@/hooks'
 import { UserAvatar } from './UserAvatar'
 
 interface UserMenuProps {

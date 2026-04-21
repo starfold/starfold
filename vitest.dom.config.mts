@@ -6,6 +6,8 @@ export default defineConfig({
     include: [
       'src/components/**/*.test.ts',
       'src/components/**/*.test.tsx',
+      'src/hooks/**/*.test.ts',
+      'src/hooks/**/*.test.tsx',
       'src/app/*frontend*/**/*.test.tsx',
       'src/app/*frontend*/**/*.test.ts',
     ],

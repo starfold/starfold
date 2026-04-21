@@ -10,8 +10,8 @@ import {
 } from '@mantine/core'
 import Link from 'next/link'
 import { sizes } from '@/app/(frontend)/design'
-import type { SignInFormValues } from '@/app/(frontend)/hooks'
 import { siteLinks } from '@/config'
+import type { SignInFormValues } from '@/hooks'
 
 interface SignInFormFieldsProps {
   form: {

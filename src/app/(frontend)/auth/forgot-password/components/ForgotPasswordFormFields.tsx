@@ -1,6 +1,6 @@
 import { Button, TextInput } from '@mantine/core'
 import { sizes } from '@/app/(frontend)/design'
-import type { ForgotPasswordFormValues } from '@/app/(frontend)/hooks'
+import type { ForgotPasswordFormValues } from '@/hooks'
 
 interface ForgotPasswordFormFieldsProps {
   form: {

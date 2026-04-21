@@ -2,7 +2,7 @@
 
 import { Button, PasswordInput } from '@mantine/core'
 import { sizes } from '@/app/(frontend)/design'
-import type { ResetPasswordFormValues } from '@/app/(frontend)/hooks'
+import type { ResetPasswordFormValues } from '@/hooks'
 
 interface ResetPasswordFormFieldsProps {
   form: {
