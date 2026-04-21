@@ -26,7 +26,7 @@ export function LogoWithTitle({
   width = sizes.x8i,
 }: LogoProps) {
   return (
-    <Link href="/">
+    <Link href="/" style={{ textDecoration: 'none' }}>
       <Group gap="sm">
         <Logo height={height} width={width} />
         <Text fw={700} size="md" c="bright">

@@ -48,7 +48,7 @@ export function UserMenu({ user }: UserMenuProps) {
             leftSection={
               <IconSettings size={icon.sizes.md} stroke={icon.strokes.md} />
             }
-            onClick={() => router.push(siteLinks.settings)}
+            onClick={() => router.push(siteLinks.settings.landing)}
           >
             Settings
           </Menu.Item>

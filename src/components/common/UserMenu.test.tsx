@@ -180,7 +180,7 @@ describe('UserMenu', () => {
           within(document.body).getByText('Settings')
         )
         fireEvent.click(settingsItem)
-        expect(mockPush).toHaveBeenCalledWith(siteLinks.settings)
+        expect(mockPush).toHaveBeenCalledWith(siteLinks.settings.landing)
       })
     })
 

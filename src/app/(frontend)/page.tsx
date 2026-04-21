@@ -8,7 +8,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Navbar user={session?.user} />
+      <Navbar user={session?.user} landing />
       <Hero />
     </>
   )

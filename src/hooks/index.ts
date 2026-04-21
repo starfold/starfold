@@ -1,4 +1,9 @@
 export {
+  type ChangePasswordFormValues,
+  changePasswordSchema,
+  useChangePasswordForm,
+} from './use-change-password-form'
+export {
   type ForgotPasswordFormValues,
   forgotPasswordSchema,
   useForgotPasswordForm,
@@ -19,3 +24,8 @@ export {
   signUpSchema,
   useSignUpForm,
 } from './use-sign-up-form'
+export {
+  type UpdateProfileFormValues,
+  updateProfileSchema,
+  useUpdateProfileForm,
+} from './use-update-profile-form'

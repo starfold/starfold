@@ -4,34 +4,65 @@ import { MantineWrapper } from '@/test'
 import { Navbar } from './Navbar'
 
 describe('Navbar', () => {
-  let container: HTMLElement
+  describe('landing mode', () => {
+    let container: HTMLElement
 
-  beforeEach(() => {
-    const result = render(<Navbar />, { wrapper: MantineWrapper })
-    container = result.container
+    beforeEach(() => {
+      const result = render(<Navbar landing />, { wrapper: MantineWrapper })
+      container = result.container
+    })
+
+    it('renders logo and nav links', () => {
+      expect(within(container).getByText('Starfold')).toBeInTheDocument()
+      // Nav links are now rendered in both desktop and mobile dropdown
+      // So we check they exist at least once
+      const features = within(container).getAllByText('Features')
+      const pricing = within(container).getAllByText('Pricing')
+      const faq = within(container).getAllByText('FAQ')
+
+      expect(features.length).toBeGreaterThanOrEqual(1)
+      expect(pricing.length).toBeGreaterThanOrEqual(1)
+      expect(faq.length).toBeGreaterThanOrEqual(1)
+    })
+
+    it('renders actions component with sign in button', () => {
+      // Sign in button is rendered in both desktop and mobile dropdown
+      const signInButtons = within(container).getAllByText('Sign in')
+      expect(signInButtons.length).toBeGreaterThanOrEqual(1)
+    })
+
+    it('has toggle button for mobile', () => {
+      const toggleButton = within(container).getByLabelText('Toggle navigation')
+      expect(toggleButton).toBeInTheDocument()
+    })
   })
 
-  it('renders logo and nav links', () => {
-    expect(within(container).getByText('Starfold')).toBeInTheDocument()
-    // Nav links are now rendered in both desktop and mobile dropdown
-    // So we check they exist at least once
-    const features = within(container).getAllByText('Features')
-    const pricing = within(container).getAllByText('Pricing')
-    const faq = within(container).getAllByText('FAQ')
+  describe('non-landing mode', () => {
+    it('renders logo with title', () => {
+      const { container } = render(<Navbar />, { wrapper: MantineWrapper })
+      expect(within(container).getByText('Starfold')).toBeInTheDocument()
+    })
 
-    expect(features.length).toBeGreaterThanOrEqual(1)
-    expect(pricing.length).toBeGreaterThanOrEqual(1)
-    expect(faq.length).toBeGreaterThanOrEqual(1)
-  })
+    it('renders user menu when user is provided', () => {
+      const user = {
+        id: '1',
+        name: 'John Doe',
+        email: 'john@example.com',
+        emailVerified: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      }
+      const { container } = render(<Navbar user={user} />, {
+        wrapper: MantineWrapper,
+      })
+      expect(within(container).getByTestId('user-avatar')).toBeInTheDocument()
+    })
 
-  it('renders actions component with sign in button', () => {
-    // Sign in button is rendered in both desktop and mobile dropdown
-    const signInButtons = within(container).getAllByText('Sign in')
-    expect(signInButtons.length).toBeGreaterThanOrEqual(1)
-  })
-
-  it('has toggle button for mobile', () => {
-    const toggleButton = within(container).getByLabelText('Toggle navigation')
-    expect(toggleButton).toBeInTheDocument()
+    it('does not render nav links', () => {
+      const { container } = render(<Navbar />, { wrapper: MantineWrapper })
+      expect(within(container).queryByText('Features')).not.toBeInTheDocument()
+      expect(within(container).queryByText('Pricing')).not.toBeInTheDocument()
+      expect(within(container).queryByText('FAQ')).not.toBeInTheDocument()
+    })
   })
 })

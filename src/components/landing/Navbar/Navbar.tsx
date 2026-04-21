@@ -1,11 +1,10 @@
 'use client'
 
-import { alpha, Box, Container, Group, Text } from '@mantine/core'
+import { alpha, Box, Container, Group } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import type { User } from 'better-auth'
-import Link from 'next/link'
 import { useRef } from 'react'
-import { Logo } from '@/components/common'
+import { LogoWithTitle, UserMenu } from '@/components/common'
 import { Actions } from './Actions'
 import { MobileDropdown } from './MobileDropdown'
 import { MobileToggle } from './MobileToggle'
@@ -13,11 +12,32 @@ import { NavLinks } from './NavLinks'
 
 interface NavbarProps {
   user?: User
+  landing?: boolean
 }
 
-export function Navbar({ user }: NavbarProps) {
+export function Navbar({ user, landing = false }: NavbarProps) {
   const [opened, { toggle, close }] = useDisclosure(false)
   const toggleRef = useRef<HTMLDivElement>(null)
+
+  if (!landing) {
+    return (
+      <Box
+        component="header"
+        style={{
+          borderBottomWidth: 1,
+          borderBottomStyle: 'solid',
+          borderBottomColor: alpha('var(--mantine-color-dark-5)', 0.2),
+        }}
+      >
+        <Container size="xl" py="md">
+          <Group justify="space-between">
+            <LogoWithTitle />
+            {user && <UserMenu user={user} />}
+          </Group>
+        </Container>
+      </Box>
+    )
+  }
 
   return (
     <Box
@@ -37,14 +57,7 @@ export function Navbar({ user }: NavbarProps) {
       <Container size="xl" py="md">
         <Group justify="space-between">
           <Group gap="md">
-            <Link href="/" style={{ textDecoration: 'none' }}>
-              <Group gap="sm">
-                <Logo />
-                <Text fw={700} size="md" c="bright">
-                  Starfold
-                </Text>
-              </Group>
-            </Link>
+            <LogoWithTitle />
             <Box visibleFrom="xs">
               <NavLinks mode="desktop" />
             </Box>

@@ -1,7 +1,10 @@
 export const siteLinks = {
   landing: '/',
   dashboard: '/dashboard',
-  settings: '/settings',
+  settings: {
+    landing: '/settings',
+    account: '/settings/account',
+  },
   auth: {
     signIn: '/auth/sign-in',
     signUp: '/auth/sign-up',
