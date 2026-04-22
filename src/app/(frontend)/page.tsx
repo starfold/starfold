@@ -1,5 +1,5 @@
 import { headers } from 'next/headers'
-import { Hero, Navbar } from '@/components/landing'
+import { Features, Hero, Navbar } from '@/components/landing'
 import { auth } from '@/lib/server'
 
 export default async function HomePage() {
@@ -10,6 +10,7 @@ export default async function HomePage() {
     <>
       <Navbar user={session?.user} landing />
       <Hero />
+      <Features />
     </>
   )
 }

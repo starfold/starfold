@@ -1,4 +1,5 @@
 import { Stack, Text, Title } from '@mantine/core'
+import { sizes } from '@/app/(frontend)/design'
 import { siteConfig } from '@/config'
 
 export function HeroTitle() {
@@ -18,7 +19,7 @@ export function HeroTitle() {
         {siteConfig.description}
       </Title>
 
-      <Text size="xl" ta={'center'} maw={640}>
+      <Text size="xl" ta={'center'} maw={160 * sizes.x1i}>
         An opinionated Next.js 16 boilerplate to help ship your SaaS in days,
         not months. Everything you need—auth, payments, emails, CMS, and
         more—beautifully integrated.

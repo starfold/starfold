@@ -4,6 +4,18 @@ import '@mantine/core/styles.layer.css'
 
 import { theme } from '@/app/(frontend)/theme'
 
-export function MantineWrapper({ children }: { children: ReactNode }) {
-  return <MantineProvider theme={theme}>{children}</MantineProvider>
+interface MantineWrapperProps {
+  children: ReactNode
+  forceColorScheme?: 'light' | 'dark'
+}
+
+export function MantineWrapper({
+  children,
+  forceColorScheme,
+}: MantineWrapperProps) {
+  return (
+    <MantineProvider theme={theme} forceColorScheme={forceColorScheme}>
+      {children}
+    </MantineProvider>
+  )
 }
