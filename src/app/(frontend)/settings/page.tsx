@@ -1,16 +1,8 @@
-import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
 import { ProfileForm } from '@/components/settings'
-import { siteLinks } from '@/config'
-import { auth } from '@/lib/auth'
+import { verifySession } from '@/lib/dal'
 
 export default async function SettingsProfilePage() {
-  const headersList = await headers()
-  const session = await auth.api.getSession({ headers: headersList })
-
-  if (!session) {
-    redirect(siteLinks.auth.signIn)
-  }
+  const session = await verifySession()
 
   return <ProfileForm user={session.user} />
 }

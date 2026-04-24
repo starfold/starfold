@@ -7,6 +7,7 @@ export default defineConfig({
       'src/collections/**/*.test.ts',
       'src/app/(payload)/**/*.test.ts',
       'src/app/my-route/**/*.test.ts',
+      'src/lib/**/*.test.ts',
       'src/payload.config.test.ts',
     ],
     environment: 'node',

@@ -4,11 +4,11 @@ import type { UseFormReturnType } from '@mantine/form'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
-import { siteLinks } from '@/config'
 import { authClient } from '@/lib/client/auth-client'
+import { getSafeRedirectUrl } from '@/lib/redirect'
 
 export const signInSchema = z.object({
   email: z.email('Invalid email'),
@@ -32,6 +32,8 @@ export function useSignInForm({
 }: UseSignInFormOptions = {}): UseSignInFormReturn {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectUrl = getSafeRedirectUrl(searchParams.get('redirect'))
 
   const form = useForm<SignInFormValues>({
     initialValues: {
@@ -56,7 +58,7 @@ export function useSignInForm({
           color: 'red',
         })
       } else {
-        router.push(siteLinks.landing)
+        router.push(redirectUrl)
         onSuccess?.()
       }
     } catch {

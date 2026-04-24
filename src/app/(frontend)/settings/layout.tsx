@@ -1,21 +1,13 @@
-import { headers } from 'next/headers'
-import { redirect } from 'next/navigation'
 import { Navbar } from '@/components/landing'
 import { SettingsShell } from '@/components/settings'
-import { siteLinks } from '@/config'
-import { auth } from '@/lib/auth'
+import { verifySession } from '@/lib/dal'
 
 export default async function SettingsLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const headersList = await headers()
-  const session = await auth.api.getSession({ headers: headersList })
-
-  if (!session) {
-    redirect(siteLinks.auth.signIn)
-  }
+  const session = await verifySession()
 
   return (
     <>
