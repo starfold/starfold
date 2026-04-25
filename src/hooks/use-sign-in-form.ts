@@ -7,8 +7,8 @@ import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
-import { authClient } from '@/lib/client/auth-client'
-import { getSafeRedirectUrl } from '@/lib/redirect'
+import { authClient } from '@/lib/client'
+import { getSafeRedirectUrl } from '@/lib/common/redirect'
 
 export const signInSchema = z.object({
   email: z.email('Invalid email'),

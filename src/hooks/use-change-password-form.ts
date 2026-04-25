@@ -6,7 +6,7 @@ import { notifications } from '@mantine/notifications'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useState } from 'react'
 import { z } from 'zod'
-import { authClient } from '@/lib/client/auth-client'
+import { authClient } from '@/lib/client'
 
 export const changePasswordSchema = z
   .object({

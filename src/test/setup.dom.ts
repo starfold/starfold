@@ -2,6 +2,9 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
 import { afterEach, vi } from 'vitest'
 
+// Mock server-only for client-side tests
+vi.mock('server-only', () => ({}))
+
 // Mock next/navigation
 vi.mock('next/navigation', () => ({
   useRouter: () => ({

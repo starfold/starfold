@@ -4,7 +4,7 @@ import { notifications } from '@mantine/notifications'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { siteLinks } from '@/config'
-import { authClient } from '@/lib/client/auth-client'
+import { authClient } from '@/lib/client'
 
 interface UseSignOutReturn {
   isSigningOut: boolean

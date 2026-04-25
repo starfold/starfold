@@ -1,6 +1,6 @@
 import { Navbar } from '@/components/landing'
 import { SettingsShell } from '@/components/settings'
-import { verifySession } from '@/lib/dal'
+import { verifySession } from '@/lib/server'
 
 export default async function SettingsLayout({
   children,

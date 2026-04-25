@@ -7,7 +7,7 @@ import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useState } from 'react'
 import { z } from 'zod'
 import { siteLinks } from '@/config'
-import { authClient } from '@/lib/client/auth-client'
+import { authClient } from '@/lib/client'
 
 export const forgotPasswordSchema = z.object({
   email: z.email('Please enter a valid email address'),

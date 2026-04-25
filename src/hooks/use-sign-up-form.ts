@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
 import { siteLinks } from '@/config'
-import { authClient } from '@/lib/client/auth-client'
+import { authClient } from '@/lib/client'
 
 export const signUpSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),

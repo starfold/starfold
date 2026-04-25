@@ -4,8 +4,8 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { cache } from 'react'
 import { siteLinks } from '@/config'
-import { auth } from '@/lib/auth'
-import { getSafeRedirectUrl } from '@/lib/redirect'
+import { getSafeRedirectUrl } from '@/lib/common/redirect'
+import { auth } from './auth'
 
 /**
  * Verifies the current session by calling better-auth's getSession.

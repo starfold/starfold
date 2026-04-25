@@ -1,7 +1,7 @@
 import { headers } from 'next/headers'
 import { type NextRequest, NextResponse } from 'next/server'
 import { siteLinks } from '@/config'
-import { auth } from '@/lib/auth'
+import { auth } from '@/lib/server'
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl

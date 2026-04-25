@@ -1,8 +1,10 @@
+import 'server-only'
+
 import { betterAuth } from 'better-auth'
 import { nextCookies } from 'better-auth/next-js'
 import { Pool } from 'pg'
 import { Resend } from 'resend'
-import { getResetPasswordEmailTemplates } from './email'
+import { getResetPasswordEmailTemplates } from '@/lib/common/email'
 
 const pool = new Pool({
   connectionString: process.env.BETTER_AUTH_DATABASE_URL,

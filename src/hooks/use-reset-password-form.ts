@@ -7,7 +7,7 @@ import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
-import { authClient } from '@/lib/client/auth-client'
+import { authClient } from '@/lib/client'
 
 export const resetPasswordSchema = z
   .object({

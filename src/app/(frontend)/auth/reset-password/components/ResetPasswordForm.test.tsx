@@ -18,7 +18,7 @@ vi.mock('@mantine/notifications', () => ({
   },
 }))
 
-vi.mock('@/lib/client/auth-client', () => ({
+vi.mock('@/lib/client', () => ({
   authClient: {
     resetPassword: vi.fn(),
   },
@@ -39,7 +39,7 @@ describe('ResetPasswordForm', () => {
   })
 
   it('shows success state after form submission', async () => {
-    const { authClient } = await import('@/lib/client/auth-client')
+    const { authClient } = await import('@/lib/client')
     vi.mocked(authClient.resetPassword).mockResolvedValueOnce({} as never)
 
     render(<ResetPasswordForm />, { wrapper: MantineWrapper })

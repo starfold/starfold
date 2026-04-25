@@ -30,7 +30,7 @@ vi.mock('@/config', () => ({
 
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { auth } from '@/lib/auth'
+import { auth } from './auth'
 import { verifySession } from './dal'
 
 const mockHeaders = new Headers()

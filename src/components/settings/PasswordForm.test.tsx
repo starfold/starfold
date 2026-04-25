@@ -1,10 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { authClient } from '@/lib/client/auth-client'
+import { authClient } from '@/lib/client'
 import { MantineWrapper } from '@/test'
 import { PasswordForm } from './PasswordForm'
 
-vi.mock('@/lib/client/auth-client', () => ({
+vi.mock('@/lib/client', () => ({
   authClient: {
     changePassword: vi.fn(),
   },

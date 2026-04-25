@@ -1,5 +1,5 @@
 import { ProfileForm } from '@/components/settings'
-import { verifySession } from '@/lib/dal'
+import { verifySession } from '@/lib/server'
 
 export default async function SettingsProfilePage() {
   const session = await verifySession()

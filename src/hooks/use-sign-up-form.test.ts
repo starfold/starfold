@@ -1,12 +1,12 @@
 import { notifications } from '@mantine/notifications'
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { authClient } from '@/lib/client/auth-client'
+import { authClient } from '@/lib/client'
 import { MantineWrapper } from '@/test'
 import { signUpSchema, useSignUpForm } from './use-sign-up-form'
 
 // Mock the auth-client module
-vi.mock('@/lib/client/auth-client', () => ({
+vi.mock('@/lib/client', () => ({
   authClient: {
     signUp: {
       email: vi.fn(),
