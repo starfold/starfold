@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { z } from 'zod'
 import { siteLinks } from '@/config'
-import { authClient } from '@/lib/auth-client'
+import { authClient } from '@/lib/client/auth-client'
 
 export const signInSchema = z.object({
   email: z.email('Invalid email'),

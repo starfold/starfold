@@ -6,7 +6,7 @@ import { notifications } from '@mantine/notifications'
 import { zod4Resolver } from 'mantine-form-zod-resolver'
 import { useState } from 'react'
 import { z } from 'zod'
-import { authClient } from '@/lib/auth-client'
+import { authClient } from '@/lib/client/auth-client'
 
 export const updateProfileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),

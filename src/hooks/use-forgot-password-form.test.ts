@@ -13,7 +13,7 @@ vi.mock('@mantine/notifications', () => ({
   },
 }))
 
-vi.mock('@/lib/auth-client', () => ({
+vi.mock('@/lib/client/auth-client', () => ({
   authClient: {
     requestPasswordReset: vi.fn(),
   },
@@ -65,7 +65,7 @@ describe('useForgotPasswordForm', () => {
   })
 
   it('sets isLoading to true when submitting', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.requestPasswordReset).mockImplementationOnce(
       () => new Promise((resolve) => setTimeout(resolve, 100))
     )
@@ -82,7 +82,7 @@ describe('useForgotPasswordForm', () => {
   })
 
   it('sets isSuccess to true on successful submission', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.requestPasswordReset).mockResolvedValueOnce(
       {} as never
     )
@@ -100,7 +100,7 @@ describe('useForgotPasswordForm', () => {
   })
 
   it('calls authClient.requestPasswordReset with correct params', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.requestPasswordReset).mockResolvedValueOnce(
       {} as never
     )
@@ -121,7 +121,7 @@ describe('useForgotPasswordForm', () => {
 
   it('shows error notification on failure', async () => {
     const { notifications } = await import('@mantine/notifications')
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.requestPasswordReset).mockRejectedValueOnce(
       new Error('Failed')
     )
@@ -146,7 +146,7 @@ describe('useForgotPasswordForm', () => {
   })
 
   it('sets isLoading back to false on error', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.requestPasswordReset).mockRejectedValueOnce(
       new Error('Failed')
     )

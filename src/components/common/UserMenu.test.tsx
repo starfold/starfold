@@ -25,7 +25,7 @@ vi.mock('@mantine/notifications', () => ({
   },
 }))
 
-vi.mock('@/lib/auth-client', () => ({
+vi.mock('@/lib/client/auth-client', () => ({
   authClient: {
     signOut: vi.fn(),
   },
@@ -203,7 +203,7 @@ describe('UserMenu', () => {
       })
 
       it('calls signOut and redirects to sign in when clicked', async () => {
-        const { authClient } = await import('@/lib/auth-client')
+        const { authClient } = await import('@/lib/client/auth-client')
         vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
 
         const { container } = render(<UserMenu user={verifiedUser} />, {
@@ -230,7 +230,7 @@ describe('UserMenu', () => {
 
       it('shows error notification when sign out fails', async () => {
         const { notifications } = await import('@mantine/notifications')
-        const { authClient } = await import('@/lib/auth-client')
+        const { authClient } = await import('@/lib/client/auth-client')
         vi.mocked(authClient.signOut).mockRejectedValueOnce(new Error('Failed'))
 
         const { container } = render(<UserMenu user={verifiedUser} />, {

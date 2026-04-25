@@ -1,14 +1,14 @@
 import { notifications } from '@mantine/notifications'
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { authClient } from '@/lib/auth-client'
+import { authClient } from '@/lib/client/auth-client'
 import { MantineWrapper } from '@/test'
 import {
   changePasswordSchema,
   useChangePasswordForm,
 } from './use-change-password-form'
 
-vi.mock('@/lib/auth-client', () => ({
+vi.mock('@/lib/client/auth-client', () => ({
   authClient: {
     changePassword: vi.fn(),
   },

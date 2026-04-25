@@ -22,7 +22,7 @@ vi.mock('@mantine/notifications', () => ({
   },
 }))
 
-vi.mock('@/lib/auth-client', () => ({
+vi.mock('@/lib/client/auth-client', () => ({
   authClient: {
     resetPassword: vi.fn(),
   },
@@ -45,7 +45,7 @@ describe('useResetPasswordForm', () => {
   })
 
   it('sets isLoading to true when submitting', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.resetPassword).mockImplementationOnce(
       () => new Promise((resolve) => setTimeout(resolve, 100))
     )
@@ -65,7 +65,7 @@ describe('useResetPasswordForm', () => {
   })
 
   it('sets isSuccess to true on successful submission', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.resetPassword).mockResolvedValueOnce({} as never)
 
     const { result } = renderHook(() => useResetPasswordForm(), {
@@ -84,7 +84,7 @@ describe('useResetPasswordForm', () => {
   })
 
   it('calls authClient.resetPassword with correct params', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.resetPassword).mockResolvedValueOnce({} as never)
 
     const { result } = renderHook(() => useResetPasswordForm(), {
@@ -106,7 +106,7 @@ describe('useResetPasswordForm', () => {
 
   it('shows error notification on reset failure', async () => {
     const { notifications: notifs } = await import('@mantine/notifications')
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.resetPassword).mockRejectedValueOnce(
       new Error('Failed')
     )
@@ -134,7 +134,7 @@ describe('useResetPasswordForm', () => {
   })
 
   it('sets isLoading back to false on error', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.resetPassword).mockRejectedValueOnce(
       new Error('Failed')
     )

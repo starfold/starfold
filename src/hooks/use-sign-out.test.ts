@@ -27,7 +27,7 @@ vi.mock('@mantine/notifications', () => ({
   },
 }))
 
-vi.mock('@/lib/auth-client', () => ({
+vi.mock('@/lib/client/auth-client', () => ({
   authClient: {
     signOut: vi.fn(),
   },
@@ -47,7 +47,7 @@ describe('useSignOut', () => {
   })
 
   it('sets isSigningOut to true when signOut is called', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
 
     const { result } = renderHook(() => useSignOut(), {
@@ -64,7 +64,7 @@ describe('useSignOut', () => {
   })
 
   it('calls authClient.signOut when signOut is invoked', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
 
     const { result } = renderHook(() => useSignOut(), {
@@ -79,7 +79,7 @@ describe('useSignOut', () => {
   })
 
   it('redirects to sign in page after successful sign out', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
 
     const { result } = renderHook(() => useSignOut(), {
@@ -99,7 +99,7 @@ describe('useSignOut', () => {
   })
 
   it('skips delay when sign out takes longer than minDelay', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     // Mock signOut to take longer than 2000ms
     vi.mocked(authClient.signOut).mockImplementationOnce(
       () => new Promise((resolve) => setTimeout(resolve, 2500))
@@ -124,7 +124,7 @@ describe('useSignOut', () => {
 
   it('shows error notification when sign out fails', async () => {
     const { notifications } = await import('@mantine/notifications')
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.signOut).mockRejectedValueOnce(new Error('Failed'))
 
     const { result } = renderHook(() => useSignOut(), {
@@ -147,7 +147,7 @@ describe('useSignOut', () => {
   })
 
   it('sets isSigningOut to false when pathname changes to sign-in page', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     const navigation = await import('next/navigation')
     const { __setPathname } = navigation as never
     vi.mocked(authClient.signOut).mockResolvedValueOnce({} as never)
@@ -171,7 +171,7 @@ describe('useSignOut', () => {
   })
 
   it('sets isSigningOut back to false when sign out fails', async () => {
-    const { authClient } = await import('@/lib/auth-client')
+    const { authClient } = await import('@/lib/client/auth-client')
     vi.mocked(authClient.signOut).mockRejectedValueOnce(new Error('Failed'))
 
     const { result } = renderHook(() => useSignOut(), {
